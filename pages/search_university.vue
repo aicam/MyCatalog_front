@@ -4,7 +4,9 @@
     <v-card style="padding: 40px">
         <v-row justify="center">
             
-            <h3 class="heading">Universities</h3>
+            <div>
+            <h3 class="heading" >Universities</h3>
+            </div>
             
             <v-text-field
                 v-model="search"
