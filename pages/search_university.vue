@@ -21,7 +21,7 @@
                 :items="universities"
                 :search="search"
                 :items-per-page="5"
-                class="elevation-1">
+                class="elevation-1"> 
             </v-data-table>
         </v-row>
     </v-card>
