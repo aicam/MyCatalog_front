@@ -114,6 +114,20 @@ export default {
       ],
     }
   },
+  computed: {
+    universities() {
+      return this.$store.dispatch("university/fetchUniversites")
+    },
+    smthng() {
+      console.log("out timer ", this.$store.getters["university/getUniversities"])
+    }
+  },
+  mounted() {
+    this.universities
+    this.smthng
+    // console.log("getters ", this.$store.getters)
+    setTimeout(() => console.log(this.$store.getters["university/getUniversities"], " in timer"), 2000)
+  }
 }
 </script>
 
