@@ -15,7 +15,7 @@
         <v-text-field
           label="password" type="password"></v-text-field>
         <v-card-actions>
-          <v-btn color="#D6CFC2" outlined>Login</v-btn>
+          <v-btn color="#D6CFC2" outlined @click="$router.push('/admin_dashboard')">Login</v-btn>
           <v-btn color="#630A0B">Forgot Password</v-btn>
         </v-card-actions>
       </v-card>

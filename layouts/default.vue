@@ -31,12 +31,14 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
+<!--      <v-btn-->
+<!--        icon-->
+<!--        @click.stop="rightDrawer = !rightDrawer"-->
+<!--      >-->
+<!--        <v-icon>mdi-menu</v-icon>-->
+<!--      </v-btn>-->
+      <h1 style="font-family: 'Bitstream Charter'; letter-spacing: 8px;">My Catalog Project</h1>
+      <v-spacer />
     </v-app-bar>
     <v-main>
       <v-container>

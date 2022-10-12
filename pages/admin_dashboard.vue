@@ -9,8 +9,17 @@
         :headers="headersUnis"
         :items="$store.getters['university/getUniversities']"
         :items-per-page="5"
+        :search="searchUni"
         class="elevation-1"
-      ></v-data-table>
+      >
+        <template v-slot:top>
+          <v-text-field
+            v-model="searchUni"
+            label="Search by all columns"
+            class="mx-4"
+          ></v-text-field>
+        </template>
+      </v-data-table>
       <v-btn outlined @click="() => {addUniDialog = true}">Add University</v-btn>
       <h3 class="heading" style="margin-top: 25px">Users</h3>
       <v-data-table
@@ -18,7 +27,16 @@
         :items="$store.getters['user/getUsers']"
         :items-per-page="5"
         class="elevation-1"
-      ></v-data-table>
+        :search="searchStudent"
+      >
+        <template v-slot:top>
+          <v-text-field
+            v-model="searchStudent"
+            label="Search by email"
+            class="mx-4"
+          ></v-text-field>
+        </template>
+      </v-data-table>
       <v-btn outlined @click="() => {addUserDialog = true}">Add User</v-btn>
     </v-card>
   </v-container>
@@ -33,6 +51,8 @@ export default {
   components: {AddUserDialog, AddUniDialog},
   data() {
     return {
+      searchUni: '',
+      searchStudent: '',
       headersUnis: [
         {
           text: 'University Name',
