@@ -6,7 +6,7 @@
           <h2>Login Form</h2>
         </v-row>
         <v-select
-          :items="['student', 'university', 'admin']"
+          :items="['user', 'university', 'admin']"
           label="Select your role"
         >
         </v-select>
