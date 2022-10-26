@@ -19,6 +19,11 @@
             class="mx-4"
           ></v-text-field>
         </template>
+        <template v-slot:item.actions="{item}">
+          <v-row justify="center">
+            <v-chip color="#3A6F94">Modify</v-chip>
+          </v-row>
+        </template>
       </v-data-table>
       <v-btn outlined @click="() => {addUniDialog = true}">Add University</v-btn>
       <h3 class="heading" style="margin-top: 25px">Users</h3>
@@ -64,6 +69,7 @@ export default {
         {text: 'Minimum SAT', value: 'min_sat'},
         {text: 'Capacity', value: 'capacity'},
         {text: 'Accept Rate', value: 'accept_rate'},
+        {text: 'Actions', value: 'actions'}
       ],
       headersUsers: [
         {text: 'Email', sortable: false, value: 'email'},
