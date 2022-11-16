@@ -41,7 +41,7 @@
       <v-spacer />
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>
@@ -86,9 +86,14 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          icon: 'mdi-login-variant',
+          title: 'Login',
+          to: '/login'
+        },
+        {
+          icon: 'mdi-account-plus-outline',
+          title: 'Sign Up',
+          to: '/registration'
         }
       ],
       miniVariant: false,

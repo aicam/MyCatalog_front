@@ -6,19 +6,16 @@
           <h2>Login Form</h2>
         </v-row>
         <v-select
-          v-model="role"
           :items="['student', 'university', 'admin']"
           label="Select your role"
         >
         </v-select>
         <v-text-field
-          label="username"></v-text-field>
+          label="email"></v-text-field>
         <v-text-field
           label="password" type="password"></v-text-field>
         <v-card-actions>
-          <v-btn color="#D6CFC2" outlined @click="login">Login</v-btn>
-          <v-btn color="#630A0B">Forgot Password</v-btn>
-          <v-btn color="#4D3EFF" @click="$router.push('/registration')">Register</v-btn>
+          <v-btn color="#D6CFC2" outlined @click="$router.push('/admin_dashboard')">Sign up</v-btn>
         </v-card-actions>
       </v-card>
     </v-row>
@@ -27,20 +24,7 @@
 
 <script>
 export default {
-  name: "login",
-  data() {
-    return {
-      role: null
-    }
-  },
-  methods: {
-    login() {
-      if (this.role === "university")
-        this.$router.push("/university_dashboard?uni=1")
-      if (this.role === "admin")
-        this.$router.push("/admin_dashboard")
-    }
-  }
+  name: "registration"
 }
 </script>
 
