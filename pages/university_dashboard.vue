@@ -1,5 +1,7 @@
 <template>
   <v-container fluid>
+    <EditUniDialog :uni="univInfo" :dialog="editUniDialog" v-on:close="editUniDialog = false" :update-univ-info="updateUnivInfo"/>
+
     <v-row style="width: 90vw; margin-left: auto; margin-right: auto">
       <v-col lg="8">
         <v-card class="text-center" v-if="univInfo" style="padding: 40px">
@@ -7,7 +9,12 @@
           <v-data-table
             :headers="headersStudents"
             :items-per-page="5"
-            :search="searchUni"
+            class="elevation-1 margin-vertically"
+          ></v-data-table>
+          <h1>Approved students</h1>
+          <v-data-table
+            :headers="headersStudents"
+            :items-per-page="5"
             class="elevation-1 margin-vertically"
           ></v-data-table>
         </v-card>
@@ -19,7 +26,8 @@
           <h3 class="margin-vertically">Minimum required SAT is {{ univInfo.min_sat }}</h3>
           <h3 class="margin-vertically">Minimum required ACT is {{ univInfo.min_act }}</h3>
           <h3 class="margin-vertically">Maximum capacity {{ univInfo.capacity }}</h3>
-          <v-btn color="#FFFA15" style="color: black">Edit Information</v-btn>
+          <h3 class="margin-vertically">Acceptance rate {{ univInfo.accept_rate }}</h3>
+          <v-btn color="#FFFA15" style="color: black" @click="editUniDialog = true">Edit Information</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -27,10 +35,13 @@
 </template>
 
 <script>
+import EditUniDialog from "@/components/admin/EditUniDialog";
 export default {
   name: "university_dashboard",
+  components: {EditUniDialog},
   data() {
     return {
+      editUniDialog: false,
       univInfo: null,
       headersStudents: [
         {
@@ -79,7 +90,13 @@ export default {
           this.univInfo = item
         }
       })
+      console.log("University information", this.univInfo);
     })
+  },
+  methods: {
+    updateUnivInfo(newInfo) {
+      this.univInfo = newInfo;
+    }
   }
 }
 </script>
