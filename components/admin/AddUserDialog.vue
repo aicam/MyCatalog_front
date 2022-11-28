@@ -13,6 +13,9 @@
         <v-radio
           label="Admin"
           value="admin"></v-radio>
+        <v-radio
+          label="University"
+          value="univ"></v-radio>
       </v-radio-group>
       <v-btn @click="() => {$store.dispatch('user/addUser', {user}); $emit('close')}">Add</v-btn>
     </v-card>

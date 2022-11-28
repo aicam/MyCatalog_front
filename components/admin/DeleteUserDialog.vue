@@ -23,25 +23,16 @@
 
 <script>
 export default {
-  name: "EditUserDialog",
+  name: "DeleteUserDialog",
   props: ['dialog', 'user_delete'],
-  data() {
-    return {
-      user: {
-        email: null,
-        password: null,
-        role: null
-      }
-    }
-  },
-  watch :{
-    user_delete(newUser, oldUser){
-      if(newUser){
-        this.user.email = newUser.email
-        this.user.role = newUser.role
-      }
-      else{
-        newUser = oldUser
+
+  computed: {
+    user(){
+      return{
+        email: this.user_delete.email,
+        password: this.user_delete.hashed_password,
+        role: this.user_delete.role,
+        id: this.user_delete.id
       }
     }
   }

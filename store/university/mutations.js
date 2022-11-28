@@ -6,10 +6,9 @@ export default {
     state.universities.push(uni)
   },
 
-  // edit_uni mutation causes error
   edit_uni(state, {id, edit}){
-    // const findIndex = state.universities.findIndex(university => university.uni_id == id)
-    // state.universities.splice(findIndex, 1, edit)
+    const findIndex = state.universities.findIndex(university => university.uni_id == id)
+    state.universities.splice(findIndex, 1, edit)
   },
   delete_uni(state, {id}){
     const findIndex = state.universities.findIndex(university => university.uni_id == id)

@@ -76,10 +76,10 @@ export default {
   components: {AddUserDialog, AddUniDialog, EditUserDialog, DeleteUserDialog, EditUniDialog, DeleteUniDialog},
   data() {
     return {
-      editUser: null,
-      editUni: null,
-      deleteUni: null,
-      deleteUser: null,
+      editUni: {},
+      editUser: {},
+      deleteUni: {},
+      deleteUser: {},
       searchUni: '',
       searchStudent: '',
       headersUnis: [
@@ -117,17 +117,17 @@ export default {
     users() {
       return this.$store.dispatch("user/fetchUsers")
     },
-    students() {
-      return this.$store.dispatch("students/fetchStudents")
-    }
+    // students() {
+    //   return this.$store.dispatch("students/fetchStudents")
+    // }
   },
   mounted() {
     this.universities
     this.users
-    this.students
-    setTimeout(() => console.log("users ", this.$store.getters['user/getUsers']), 2000)
+    // this.students
+    // setTimeout(() => console.log("Students ", this.$store.getters['student/getStudent']), 2000)
     
-  }
+  },
 }
 </script>
 

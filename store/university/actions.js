@@ -11,17 +11,15 @@ export default {
     commit('push_uni', { uni })
   },
 
-  //TODO Modify(Edit) Update University
-  //-commit causes error (edit_uni)
+  //TODO Modify/Update University
   async editUniversity({state, commit}, { id, edit }){
     await this.$axios.patch(`univ/edit/${id}`, edit)
-
-    // commit('edit_uni', {id, edit})
+    commit('edit_uni', {id, edit})
   },
 
-  //TODO Delete University (BackEndCall)
+  //TODO Delete University
   async deleteUniversity({state, commit}, {id}){
-    // await this.$axios.delete(`univ/delete/${id}`)
+    await this.$axios.get(`univ/delete/${id}`)
     commit('delete_uni', {id})
   }
 }

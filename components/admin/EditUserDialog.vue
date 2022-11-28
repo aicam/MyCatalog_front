@@ -13,8 +13,12 @@
           <v-radio
             label="Admin"
             value="admin"></v-radio>
+          <v-radio
+            label="University"
+            value="univ"
+          ></v-radio>
         </v-radio-group>
-        <v-btn @click="() => {this.$store.dispatch('user/editUser', {id: this.user_edit.id, edit: this.user}); $emit('close')}">Edit</v-btn>
+        <v-btn @click="() => {this.$store.dispatch('user/editUser', {id: this.user.id, edit: this.user}); $emit('close')}">Edit</v-btn>
       </v-card>
     </v-dialog>
   </template>
@@ -23,23 +27,14 @@
   export default {
     name: "EditUserDialog",
     props: ['dialog', 'user_edit'],
-    data() {
-      return {
-        user: {
-          email: null,
-          password: null,
-          role: null
-        }
-      }
-    },
-    watch :{
-      user_edit(newUser, oldUser){
-        if(newUser){
-          this.user.email = newUser.email
-          this.user.role = newUser.role
-        }
-        else{
-          newUser = oldUser
+
+    computed: {
+      user(){
+        return{
+          email: this.user_edit.email,
+          password: this.user_edit.hashed_password,
+          role: this.user_edit.role,
+          id: this.user_edit.id
         }
       }
     }

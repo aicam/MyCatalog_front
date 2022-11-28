@@ -9,9 +9,7 @@
         <v-text-field label="Minimum SAT" filled readonly v-model="uni_info.min_sat"/>
         <v-text-field label="Capacity" filled readonly v-model="uni_info.capacity"/>
         <v-text-field label="Acceptance Rate" filled readonly v-model="uni_info.accept_rate"/>
-
-        <!-- Insert Fucntion Here -->
-        <v-btn @click="() => {this.$store.dispatch('university/deleteUniversity', {id: this.uni_info.uni_id}); $emit('close') }">Delete</v-btn>
+        <v-btn @click="update">Delete</v-btn>
       </v-card>
     </v-dialog>
   </template>
@@ -19,30 +17,27 @@
   <script>
   export default {
     name: "DeleteUniDialog",
-    props: ['dialog', 'uni'],
-    data() {
-      return {
-        uni_info: {
-          uni_name: null,
-          min_act: null,
-          min_sat: null,
-          capacity: null,
-          accept_rate: null,
+    props: ['dialog', 'uni', 'deleteUnivInfo'],
+
+    computed: {
+      uni_info(){
+        return{
+          uni_name: this.uni.uni_name,
+          min_act: this.uni.min_act,
+          min_sat: this.uni.min_sat,
+          capacity: this.uni.capacity,
+          accept_rate: this.uni.accept_rate,
+          uni_id: this.uni.uni_id,
         }
       }
     },
 
-    watch :{
-      uni(newUni, oldUni){
-        if(newUni){
-          this.uni_info.uni_name = newUni.uni_name
-          this.uni_info.min_act = newUni.min_act
-          this.uni_info.min_sat = newUni.min_sat
-          this.uni_info.capacity = newUni.capacity
-          this.uni_info.accept_rate = newUni.accept_rate
-        }
-        else{
-          newUni = oldUni
+    methods: {
+      update() {
+        this.$store.dispatch('university/deleteUniversity', {id: this.uni_info.uni_id}); 
+        this.$emit('close')
+        if(this.deleteUnivInfo){
+          this.deleteUnivInfo({})
         }
       }
     }

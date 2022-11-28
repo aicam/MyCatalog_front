@@ -20,7 +20,7 @@ export default {
 
   // TODO: Delete User (Waiting for back end call)
   async deleteUser({state, commit}, {id}){
-    // INSERT BACKEND CALL HERE
+    await this.$axios.get(`admin/delete/user/${id}`)
     commit('delete_user', {id})
   }
 }

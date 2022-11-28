@@ -21,38 +21,27 @@
 export default {
   name: "EditUniDialog",
   props: ['dialog', 'uni', 'updateUnivInfo'],
-  data() {
-    return {
-      uni_info: {
-        uni_name: null,
-        min_act: null,
-        min_sat: null,
-        capacity: null,
-        accept_rate: null,
+
+  computed: {
+    uni_info() {
+      return {
+        uni_name: this.uni.uni_name,
+        min_act: this.uni.min_act,
+        min_sat: this.uni.min_sat,
+        capacity: this.uni.capacity,
+        accept_rate: this.uni.accept_rate,
+        uni_id: this.uni.uni_id,
       }
     }
   },
   methods: {
     update() {
-      this.$store.dispatch('university/editUniversity', {id: this.uni.uni_id, edit: this.uni_info})
-      this.$emit('close')
+      this.$store.dispatch('university/editUniversity', {id: this.uni_info.uni_id, edit: this.uni_info})
+      this.$emit('close');
       if (this.updateUnivInfo)
         this.updateUnivInfo(this.uni_info)
     }
   },
-  watch: {
-    uni(newUni, oldUni) {
-      if (newUni) {
-        this.uni_info.uni_name = newUni.uni_name
-        this.uni_info.min_act = newUni.min_act
-        this.uni_info.min_sat = newUni.min_sat
-        this.uni_info.capacity = newUni.capacity
-        this.uni_info.accept_rate = newUni.accept_rate
-      } else {
-        newUni = oldUni
-      }
-    }
-  }
 }
 </script>
 
