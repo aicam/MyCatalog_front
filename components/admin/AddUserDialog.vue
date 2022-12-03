@@ -6,6 +6,7 @@
     <v-card style="padding: 25px; background: rgba(86,70,144,0.76)">
       <v-text-field label="Email" v-model="user.email"/>
       <v-text-field label="Password" v-model="user.password"/>
+      <v-text-field label="University name (if user is university admin)" v-model="user.university_name"/>
       <v-radio-group v-model="user.role">
         <v-radio
           label="Student"
@@ -31,7 +32,8 @@ export default {
       user: {
         email: null,
         password: null,
-        role: null
+        role: null,
+        university_name: null
       }
     }
   }

@@ -12,8 +12,10 @@
         >
         </v-select>
         <v-text-field
+          v-model="data.username"
           label="username"></v-text-field>
         <v-text-field
+          v-model="data.password"
           label="password" type="password"></v-text-field>
         <v-card-actions>
           <v-btn color="#D6CFC2" outlined @click="login">Login</v-btn>
@@ -30,15 +32,29 @@ export default {
   name: "login",
   data() {
     return {
-      role: null
+      role: null,
+      data: {
+        username: null,
+        password: null
+      }
     }
   },
   methods: {
     login() {
-      if (this.role === "university")
-        this.$router.push("/university_dashboard?uni=1")
-      if (this.role === "admin")
-        this.$router.push("/admin_dashboard")
+      const data = this.data
+      this.$auth.loginWith('local', { data }).then(response => {
+        localStorage.setItem("university", response.data.user.university)
+        localStorage.setItem("user_id", response.data.user.id)
+        if (this.role === "university") {
+          this.$router.push("/university_dashboard")
+        }
+        if (this.role === "admin") {
+          this.$router.push("/admin_dashboard")
+        }
+        if (this.role === "student") {
+          this.$router.push("/student_dashboard")
+        }
+      })
     }
   }
 }

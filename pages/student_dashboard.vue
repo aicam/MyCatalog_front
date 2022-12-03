@@ -1,22 +1,5 @@
 <script>
 export default {
-  async asyncData({ params, redirect }) {
-    if (!params.profile) {
-      redirect("/")
-    }
-    const studentDetails = await fetch(
-        `http://127.0.0.1:8000/student/profile/${params.profile}/`
-      ).then((res) => res.json())
-
-    return {
-      id: studentDetails.user_id,
-      f_name: studentDetails.f_name,
-      l_name: studentDetails.l_name,
-      gpa: studentDetails.gpa,
-      sat_score: studentDetails.sat_score,
-      act_score: studentDetails.act_score
-    }
-  },
   data() {
     return {
       isEditable: false,
@@ -26,7 +9,7 @@ export default {
       sat_score: this.sat_score,
       act_score: this.act_score
     }
-  },  
+  },
   methods: {
     handleEdit(event) {
       this.isEditable = !this.isEditable
@@ -53,7 +36,7 @@ export default {
   },
   computed: {
     fullName: {
-      
+
       get() {
         if (this.l_name) {
         return `${this.f_name} ${this.l_name}`
@@ -64,7 +47,7 @@ export default {
       },
       set(newValue) {
         const m = newValue.match(/(\S*)\s+(.*)/);
-        
+
         if (m) {
           this.f_name = m[1];
           this.l_name = m[2];
@@ -111,7 +94,7 @@ export default {
                     </v-btn>
                   </v-list-item-action>
                 </v-list-item>
-      
+
             <v-list-item>
               <v-col cols="6" class="text-end">
                 <v-text-field v-if="isEditable"  v-model="sat_score" prepend-icon="mdi-sort" label="SAT score" ></v-text-field>

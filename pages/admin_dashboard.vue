@@ -29,7 +29,7 @@
             <v-btn @click="() => {deleteUniDialog = true; deleteUni = item}">Delete</v-btn>
           </v-row>
         </template>
-        
+
       </v-data-table>
       <v-btn outlined @click="() => {addUniDialog = true}">Add University</v-btn>
 
@@ -99,6 +99,7 @@ export default {
         {text: 'Email', sortable: false, value: 'email'},
         {text: 'Hashed Password', sortable: false, value: 'hashed_password'},
         {text: 'Role', value: 'role'},
+        {text: 'University', value: 'university_name'},
         {text: 'Actions', value: 'actions'}
       ],
 
@@ -126,7 +127,7 @@ export default {
     this.users
     // this.students
     // setTimeout(() => console.log("Students ", this.$store.getters['student/getStudent']), 2000)
-    
+
   },
 }
 </script>

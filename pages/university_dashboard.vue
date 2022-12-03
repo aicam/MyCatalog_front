@@ -1,4 +1,4 @@
-<template v-if="Object.keys(univInfo).length !== 0">
+<template>
   <v-container fluid>
     <EditUniDialog :uni="univInfo" :dialog="editUniDialog" v-on:close="editUniDialog = false" :update-univ-info="updateUnivInfo"/>
     <DeleteUniDialog :uni="univInfo" :dialog="deleteUniDialog" v-on:close="deleteUniDialog = false" :delete-univ-info="deleteUnivInfo"/>
@@ -34,9 +34,6 @@
       </v-col>
     </v-row>
   </v-container>
-</template>
-<template v-else>
-  <h2>University Does Not Exist</h2>
 </template>
 
 <script>
@@ -98,7 +95,7 @@ export default {
         // if (item.uni_id == window.location.search.substring(1).split('=')[1]) {
 
         // if statement is used for testing purposes, delete and fix when possible -Jerome
-        if(item.uni_id == 1){
+        if(item.uni_name === localStorage.getItem("university")){
           this.univInfo = item
         }
       })

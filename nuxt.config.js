@@ -42,12 +42,13 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
   axios: {
     baseURL: 'http://localhost:8000'
@@ -73,5 +74,23 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  // Authentication
+  auth: {
+    redirect: {
+      home: false
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'key',
+          type: false
+        },
+        user: false,
+        endpoints: {
+          login: {url: 'student/login', method: 'post'}
+        }
+      }
+    }
   }
 }
