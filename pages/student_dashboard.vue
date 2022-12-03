@@ -1,67 +1,3 @@
-<script>
-export default {
-  data() {
-    return {
-      isEditable: false,
-      f_name: this.f_name,
-      l_name: this.l_name,
-      gpa: this.gpa,
-      sat_score: this.sat_score,
-      act_score: this.act_score
-    }
-  },
-  methods: {
-    handleEdit(event) {
-      this.isEditable = !this.isEditable
-
-
-      if (this.isEditable == false) {
-        fetch(`http://127.0.0.1:8000/student/profile/${this.id}/`, {
-          method: 'PATCH',
-          body: JSON.stringify({
-            f_name: this.f_name,
-            l_name: this.l_name,
-            gpa: this.gpa,
-            sat_score: this.sat_score,
-            act_score: this.act_score
-          }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
-
-
-      }
-    }
-  },
-  computed: {
-    fullName: {
-
-      get() {
-        if (this.l_name) {
-        return `${this.f_name} ${this.l_name}`
-        }
-        else{
-          return `${this.f_name}${this.l_name}`
-        }
-      },
-      set(newValue) {
-        const m = newValue.match(/(\S*)\s+(.*)/);
-
-        if (m) {
-          this.f_name = m[1];
-          this.l_name = m[2];
-        }
-        else {
-          this.f_name = newValue;
-          this.l_name = ""
-        }
-      }
-    }
-  }
-}
-</script>
-
 <template>
   <v-container fluid>
           <v-card max-width="450px" class="mx-auto bg" elevation="3">
@@ -81,8 +17,11 @@ export default {
                     <v-list-item-title v-if="!isEditable" class="text-h6">
                       {{f_name}} {{l_name}}
                     </v-list-item-title>
-                    <v-text-field v-if="isEditable"  v-model="fullName" prepend-icon="mdi-account" label="Name" ></v-text-field>
+                    <v-text-field v-if="isEditable"  v-model="f_name" prepend-icon="mdi-account" label="First Name" ></v-text-field>
+                    <v-text-field v-if="isEditable"  v-model="l_name" prepend-icon="mdi-account" label="Last Name" ></v-text-field>
                     <v-text-field v-if="isEditable"  v-model="gpa" prepend-icon="mdi-sort" label="GPA" ></v-text-field>
+                    <v-text-field v-if="isEditable"  v-model="sat_score" prepend-icon="mdi-sort" label="SAT score" ></v-text-field>
+                    <v-text-field v-if="isEditable"  v-model="act_score" prepend-icon="mdi-sort" label="ACT score" ></v-text-field>
 
                     <v-list-item-subtitle v-if="!isEditable">GPA: {{gpa}}</v-list-item-subtitle>
                   </v-list-item-content>
@@ -120,3 +59,43 @@ export default {
           </v-card>
         </v-container>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isEditable: false,
+      f_name: "",
+      l_name: "",
+      gpa: "",
+      sat_score: "",
+      act_score: ""
+    }
+  },
+  methods: {
+    handleEdit(event) {
+      this.isEditable = !this.isEditable
+      this.$store.dispatch("student/updateStudentInfo", {
+        student_id: localStorage.getItem("user_id"),
+        info: {
+          f_name: this.f_name,
+          l_name: this.l_name,
+          gpa: this.gpa,
+          sat_score: this.sat_score,
+          act_score: this.act_score
+        }
+      })
+    },
+  },
+  mounted() {
+    this.$store.dispatch("student/fetchStudent", {student_id: localStorage.getItem("user_id")}).then(response => {
+      const data = response.data
+      this.f_name = data.f_name
+      this.l_name = data.l_name
+      this.gpa = data.gpa
+      this.sat_score = data.sat_score
+      this.act_score = data.act_score
+    })
+  }
+}
+</script>
