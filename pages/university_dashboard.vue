@@ -1,7 +1,9 @@
 <template>
   <v-container fluid>
-    <EditUniDialog :uni="univInfo" :dialog="editUniDialog" v-on:close="editUniDialog = false" :update-univ-info="updateUnivInfo"/>
-    <DeleteUniDialog :uni="univInfo" :dialog="deleteUniDialog" v-on:close="deleteUniDialog = false" :delete-univ-info="deleteUnivInfo"/>
+    <EditUniDialog :uni="univInfo" :dialog="editUniDialog" v-on:close="editUniDialog = false"
+                   :update-univ-info="updateUnivInfo"/>
+    <DeleteUniDialog :uni="univInfo" :dialog="deleteUniDialog" v-on:close="deleteUniDialog = false"
+                     :delete-univ-info="deleteUnivInfo"/>
 
     <v-row style="width: 90vw; margin-left: auto; margin-right: auto">
       <v-col lg="8">
@@ -9,15 +11,24 @@
           <h1>Current applied students</h1>
           <v-data-table
             :headers="headersStudents"
+            :items="allApps.filter(item => !item.approved)"
             :items-per-page="5"
             class="elevation-1 margin-vertically"
-          ></v-data-table>
+          >
+            <template v-slot:item.action="{item}">
+              <v-row justify="center">
+                <v-btn x-small color="#13F5FF" style="color: black" @click="() => {$store.dispatch(`university/approveApplication`, {app_id: item.app_id}).then(); fetchApps()}">Approve</v-btn>
+              </v-row>
+            </template>
+          </v-data-table>
           <h1>Approved students</h1>
           <v-data-table
             :headers="headersStudents"
+            :items="allApps.filter(item => item.approved)"
             :items-per-page="5"
             class="elevation-1 margin-vertically"
-          ></v-data-table>
+          >
+          </v-data-table>
         </v-card>
       </v-col>
       <v-col lg="4">
@@ -47,68 +58,74 @@ export default {
     return {
       editUniDialog: false,
       deleteUniDialog: false,
-      univInfo:{},
+      univInfo: {},
+      allApps: [],
+      searchUni: "",
       headersStudents: [
         {
           text: 'Student Name',
-          align: 'start',
+          align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'full_name',
         },
         {
           text: 'SAT score',
           align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'student.sat_score',
         },
         {
           text: 'ACT score',
           align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'student.act_score',
         },
         {
           text: 'Date Applied',
-          align: 'start',
+          align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'date_applied',
         },
         {
           text: 'GPA',
-          align: 'start',
+          align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'student.gpa',
         },
         {
           text: 'Actions',
-          align: 'start',
+          align: 'center',
           sortable: false,
-          value: 'uni_name',
+          value: 'action',
         },
       ]
     }
   },
 
   mounted() {
-    this.$store.dispatch("university/fetchUniversites").then(res => {
-      res.map(item => {
-        // if (item.uni_id == window.location.search.substring(1).split('=')[1]) {
-
-        // if statement is used for testing purposes, delete and fix when possible -Jerome
-        if(item.uni_name === localStorage.getItem("university")){
-          this.univInfo = item
-        }
-      })
-      console.log("University information", this.univInfo);
-    })
+    this.fetchApps()
   },
 
   methods: {
+    fetchApps() {
+      this.$store.dispatch("university/fetchUniversites").then(res => {
+        res.map(item => {
+          // if (item.uni_id == window.location.search.substring(1).split('=')[1]) {
+
+          // if statement is used for testing purposes, delete and fix when possible -Jerome
+          if (item.uni_name === localStorage.getItem("university")) {
+            this.univInfo = item
+          }
+        })
+        this.$store.dispatch("university/getAllApplications", {uni_name: this.univInfo.uni_name}).then(res => {
+          this.allApps = res.data
+        })
+      })
+    },
     updateUnivInfo(newInfo) {
       this.univInfo = newInfo;
     },
-
-    deleteUnivInfo(newInfo){
+    deleteUnivInfo(newInfo) {
       this.univInfo = newInfo;
     }
   }

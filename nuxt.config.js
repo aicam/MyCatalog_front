@@ -51,7 +51,7 @@ export default {
     '@nuxtjs/auth-next'
   ],
   axios: {
-    baseURL: 'http://localhost:8000'
+    baseURL: 'http://54.177.22.161:8000'
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
